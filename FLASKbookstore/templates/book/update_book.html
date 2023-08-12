@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}更改书籍信息{% endblock %}</h1>
+{% if g.is_admin %}
+<a class="action" href="{{ url_for('book.create') }}">点击进货</a> {% if g.is_Super %}
+<a class="action" href="{{ url_for('book.list') }}">进货清单</a>
+<a class="action" href="{{ url_for('book.list_expenses') }}">支出账单</a>
+<a class="action" href="{{ url_for('book.list_income') }}">收入账单</a>
+<a class="action" href="{{ url_for('book.all_borrow_list') }}">全部借书清单</a>{% endif %}{% endif %} {% endblock %} {% block content %}
+<form method="post">
+    <label for="isbn" align="center">ISBN</label>
+    <input type="numberofisbn" min="1" name="isbn" id="isbn" value="{{ book['isbn'] }}" required>
+    <label for="bookname" align="center">书名</label>
+    <input type="text" name="bookname" id="bookname" value="{{ book['bookname'] }}" required>
+    <label for="author" align="center">作者</label>
+    <input type="text" name="author" id="author" value="{{ book['author'] }}" required>
+    <label for="publisher" align="center">出版商</label>
+    <input type="text" name="publisher" id="publisher" value="{{ book['publisher'] }}" required>
+    <input type="submit" value="提交" onclick="return confirm('确认提交'); window.location.href='/index.html';">
+
+</form>
+{% endblock %}

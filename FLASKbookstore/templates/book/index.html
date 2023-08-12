@@ -1,0 +1,118 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}图书{% endblock %}</h1>
+{% if g.user %} {% if g.is_admin %}
+<a class="action" href="{{ url_for('book.create') }}">点击进货</a> {% if g.is_Super %}
+<a class="action" href="{{ url_for('book.list') }}">进货清单</a>
+<a class="action" href="{{ url_for('book.list_expenses') }}">支出账单</a>
+<a class="action" href="{{ url_for('book.list_income') }}">收入账单</a>
+<a class="action" href="{{ url_for('book.all_borrow_list') }}">全部借书清单</a> {% endif %} {% else %}
+<a class="action" href="{{ url_for('book.borrow_list') }}">借书清单</a> {% endif %} {% endif %}{% endblock %} {% block content %}
+<div class="container">
+    <form action="/search" method="post" class="parent">
+        <select name="type" class="select">
+      {% if type %}
+      <option value="{{type}}" select hidden>{{type}}</option>
+      {% endif %}
+      <option value="ID">ID</option>
+      <option value="ISBN">ISBN</option>
+      <option value="书名">书名</option>
+      <option value="作者">作者</option>
+      <option value="出版社">出版社</option>
+    </select>
+        <input type="text.search" name="search" class="search" placeholder="搜索" value="{{ search }}">
+        <button type="submit" class="btn">
+</form>
+  </div>
+  <table width="900px" height="100px">
+    <tr>
+      {% if g.user %}
+      <th>ID</th>
+      <th>ISBN</th>
+      <th>书名</th>
+      <th>作者</th>
+      <th>出版社</th>
+      
+      {% if g.is_admin %}
+      <th>售价</th>
+      <th>库存量</th>
+      <th>&nbsp;</th>
+      <th>购买</th>
+      <th>更改零售价</th>
+      <th>设置可否出借</th>
+      <th>更改信息</th>
+      {% else %}
+      <th>借阅操作</th>
+      {% endif %}
+      {% else %}
+      <th>登录后查看书籍清单</th>
+      {% endif %}
+    </tr>
+    {% for j in range(2*(i-1), 2*i) %}
+    {% if j < num_books %}
+    <article class="post">
+      <header>
+        <tr>
+          {% if g.user %}
+          {% if g.is_admin %}
+          <div>
+            <th>{{ posts[j]['bid'] }}</th>
+            <th>{{ posts[j]['isbn'] }}</th>
+            <th>{{ posts[j]['bookname'] }}</th>
+            <th>{{ posts[j]['author'] }}</th>
+            <th>{{ posts[j]['publisher'] }}</th>
+            <th>{{ posts[j]['unit_price'] }}</th>
+            <th>{{ posts[j]['amount'] }}</th>
+          </div>
+          
+            {% if posts[j]['available'] is true %}
+            <th><a class="action" href="{{ url_for('book.takeoff', bid=posts[j]['bid']) }}">下架</a></th>
+            <form action="/sell" method="post">
+              <th><input type="hidden" name="bid" value="{{ posts[j]['bid'] }}">
+                  <input type="number" name="sell_amount">
+                  <input type="submit"></input>
+        </th>
+    </form>
+            {% else %}
+            <th><a class="action" href="{{ url_for('book.puton', bid=posts[j]['bid']) }}">上架</a></th>
+            <th>不可购买</th>
+            {% endif %}
+            <form action="/change_unit_price" method="post">
+              <th><input type="hidden" name="bid" value="{{ posts[j]['bid'] }}">
+                  <input type="number" name="unit_price">
+                  <input type="submit"></input>
+        </th>
+    </form>
+    {% if posts[j]['available_to_borrow'] is true %}
+    <th><a class="action" href="{{ url_for('book.set_unavailable_to_borrow', bid=posts[j]['bid']) }}">不可出借</a></th>
+    {% else %}
+    <th><a class="action" href="{{ url_for('book.set_available_to_borrow', bid=posts[j]['bid']) }}">可出借</a></th>
+    {% endif %}
+    <th><a class="action" href="{{ url_for('book.update_book', bid=posts[j]['bid']) }}">更改信息</a></th>
+    {% else %} {% if posts[j]['available'] is true %}
+    <div>
+        <th>{{ posts[j]['bid'] }}</th>
+        <th>{{ posts[j]['isbn'] }}</th>
+        <th>{{ posts[j]['bookname'] }}</th>
+        <th>{{ posts[j]['author'] }}</th>
+        <th>{{ posts[j]['publisher'] }}</th>
+        {% if posts[j]['available_to_borrow'] is true %}
+        <th><a class="action" href="{{ url_for('book.borrow', bid=posts[j]['bid']) }}">借阅</a></th>
+        {% else %}
+        <th>不可借阅</th>
+    </div>
+
+    {% endif %}{% endif %}
+    {% endif %} {% endif %}{% endif %}{% endfor %}
+    </tr>
+    </header>
+    </article>
+    </table>
+    {% if g.user %}
+    <form method="post">
+    {% if num_books > 0 %}
+      <label for="page-input" align="center" style="margin-top: 100px;">当前页数是{{i}},最大页数是{{(num_books-1)//2+1}},跳转到页数:</label>
+      <input type="number" name="page" id="page" min="1" value="{{ current_page }}" class="page-input" />
+      <input type="submit" value="跳转">
+    {% endif %}{% endif %}
+    </form>
+    {% endblock %}

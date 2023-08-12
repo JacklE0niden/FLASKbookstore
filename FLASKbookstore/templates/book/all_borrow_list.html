@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}全部借书清单{% endblock %}</h1>
+{% if g.is_admin %}
+<a class="action" href="{{ url_for('book.create') }}">点击进货</a> {% if g.is_Super %}
+<a class="action" href="{{ url_for('book.list') }}">进货清单</a>
+<a class="action" href="{{ url_for('book.list_expenses') }}">支出账单</a>
+<a class="action" href="{{ url_for('book.list_income') }}">收入账单</a>
+<a class="action" href="{{ url_for('book.all_borrow_list') }}">全部借书清单</a>{% endif %}{% endif %} {% endblock %} {% block content %}
+<table width="900px" height="100px">
+    <tr>
+        <th>借阅流水号</th>
+        <th>读者ID</th>
+        <th>书籍ID</th>
+        <th>时间</th>
+        <th>借阅天数</th>
+    </tr>
+    {% for post in posts %}
+    <tr>
+        <th>{{ post['brno'] }}</th>
+        <th>{{ post['rid'] }} </th>
+        <th>{{ post['bid'] }}</th>
+        <th>{{ post['br_time'] }}</th>
+        {% if post['days'] > 1 %}
+            <th style="color: red">{{ post['days'] }}</th>
+        {% else %}
+            <th>{{ post['days'] }}</th>
+        {% endif %}
+        {% if post['isreturn'] is true %}
+        <th>已归还</th>
+        {% else %}
+        <th>未归还</th>
+        {% endif %}
+    </tr>
+    {% endfor %} {% endblock %}

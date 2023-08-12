@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}管理员注册{% endblock %}</h1>
+{% endblock %} {% block content %}
+<form method="post">
+    <label for="username" align="center">用户名</label>
+    <input type="text" name="username" id="username" required>
+    <label for="password" align="center">密码</label>
+    <input type="password" name="password" id="password" required>
+    <label for="ckeck_password" align="center">确认密码</label>
+    <input type="password" name="check_password" id="check_password">
+    <label for="realname" align="center">真实姓名</label>
+    <input type="text" name="realname" id="realname" required>
+    <label for="workno" align="center">工号</label>
+    <input type="number" name="workno" id="workno" min="0" required>
+    <label for="gender" align="center">性别</label>
+    <div class="select-wrapper">
+        <select name="gender">
+        <option value="男">男</option>
+        <option value="女">女</option>
+        </select>
+    </div>
+    <label for="age" align="center">年龄</label>
+    <input type="number" name="age" id="age" min="0" required>
+    <input type="submit" value="注册" onclick="return confirm('确认提交');">
+</form>
+{% endblock %}

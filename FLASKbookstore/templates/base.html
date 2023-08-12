@@ -1,0 +1,43 @@
+<!doctype html>
+<title>{% block title %}{% endblock %}</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}"> -->
+
+<nav>
+    <h1>Book Management System</h1>
+    <ul>
+        {% if g.user %} {% if g.is_admin %}
+        <li><a class="welcome_words">欢迎</a></li>
+        <li><a class="welcome_words">{{ g.user['aname'] }}</a></li> 
+        {% if g.user['issuper'] %}
+        <li><a class="welcome_words">尊贵的超级管理员</a></li>
+        <li><a href="{{ url_for('auth.admin_list') }}" class="linkbutton">管理员名单</a>
+            <li><a href="{{ url_for('auth.admin_update', id=g.user['aid']) }}" class="linkbutton">个人资料修改</a> {% else %}
+                <!--否则是普通管理员-->
+                <li><a class="welcome_words">欢迎普通管理员</a></li>
+                <li><a href="{{ url_for('auth.admin_update', id=g.user['aid']) }}" class="linkbutton">个人资料修改</a> {% endif %}
+                    <li><a href="{{ url_for('auth.administrator_change_password', id=g.user['aid']) }}" class="linkbutton">修改密码</a>
+                        <li><a href="{{ url_for('auth.reader_list') }}" class="linkbutton">读者名单</a> {% else %}
+                            <!--否则是读者-->
+                            <li><a class="welcome_words">欢迎读者</a></li>
+                            <li><a class="welcome_words">{{ g.user['rname'] }}</a></li>
+                            <li><a class="welcome_words">登入系统</a></li>
+                            <li><a href="{{ url_for('auth.reader_update', id=g.user['rid']) }}" class="linkbutton">个人资料修改</a>
+                                <li><a href="{{ url_for('auth.reader_change_password', id=g.user['rid']) }}" class="linkbutton">修改密码</a> {% endif %}
+                                    <li><a href="{{ url_for('auth.logout') }}" class="linkbutton">登出</a> {% else %}
+                                        <li><a href="{{ url_for('auth.reader_register') }}" class="linkbutton">读者注册</a>
+                                            <li><a href="{{ url_for('auth.reader_login') }}" class="linkbutton">读者登录</a>
+                                                <li><a href="{{ url_for('auth.admin_login') }}" class="linkbutton">管理员登录</a> {% endif %}
+                                                    <li><a href="{{ url_for('book.index') }}" class="linkbutton">首页</a>
+    </ul>
+</nav>
+
+<section class="content">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+    {% endfor %} {% block content %}{% endblock %}
+</section>

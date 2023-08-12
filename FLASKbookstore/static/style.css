@@ -1,0 +1,395 @@
+html {
+    font-family: sans-serif;
+    background: #fff;
+    padding: 1rem;
+}
+
+body {
+    max-width: 1500px;
+    margin: 0 auto;
+    background: white;
+}
+
+h1 {
+    font-family: serif;
+    color: #b18ef1;
+    margin: 1rem 0;
+    font-size: 2em;
+}
+
+a {
+    color: #b18ef1;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid lightgray;
+}
+
+nav {
+    background: #b18ef124;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 10px;
+}
+
+nav h1 {
+    flex: auto;
+    margin: 0;
+}
+
+nav h1 a {
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a,
+nav ul li span,
+header .action {
+    display: block;
+    padding: 0.5rem;
+}
+
+.content {
+    padding: 0 1rem 1rem;
+}
+
+.content>header {
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: flex-end;
+}
+
+.content>header h1 {
+    flex: auto;
+    margin: 1rem 0 0.25rem 0;
+}
+
+.flash {
+    margin: 1em 0;
+    padding: 1em;
+    background: #cae6f6;
+    border: 1px solid #377ba8;
+}
+
+.post>header {
+    display: flex;
+    align-items: flex-end;
+    font-size: 0.85em;
+}
+
+.post>header>div:first-of-type {
+    flex: auto;
+}
+
+.post>header h1 {
+    font-size: 1.5em;
+    margin-bottom: 0;
+}
+
+.post .about {
+    color: slategray;
+    font-style: italic;
+}
+
+.post .body {
+    white-space: pre-line;
+}
+
+.content:last-child {
+    margin-bottom: 0;
+}
+
+.content form {
+    margin: 1em 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.content label {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+
+.content input,
+
+/* .content select {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    font-size: 1em;
+    outline: none;
+    width: 50px;
+    /* height: 40px;
+    border-radius: 18px;
+    outline: none;
+    border: 1px solid #ccc;
+    padding-left: 20px;
+    position: absolute;
+} */
+
+
+/* .options{ */
+
+
+/* margin-bottom: 1em;
+    padding: 0.5em;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    font-size: 1em;
+    outline: none;
+    width: 50px;
+    /* height: 40px;
+    border-radius: 18px;
+    outline: none;
+    border: 1px solid #ccc;
+    padding-left: 20px;
+    position: absolute;
+} */
+
+.content textarea {
+    margin-bottom: 1em;
+}
+
+.content textarea {
+    min-height: 12em;
+    resize: vertical;
+}
+
+input.danger {
+    color: #cc2f2e;
+}
+
+input[type=submit] {
+    width: 100px;
+    background-color: #b18ef1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+input[type=number] {
+    width: 45px;
+    border: 3px solid #b18ef1;
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 16px;
+    margin: 10px auto;
+}
+
+input[type=numberofisbn] {
+    width: 120px;
+    border: 3px solid #b18ef1;
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 16px;
+    margin: 10px auto;
+}
+
+input[type=text] {
+    /* width: 300px;
+    border: 1px solid #ccc;
+    padding: 5px 5px;
+    font-size: 16px; */
+    width: 300px;
+    box-sizing: border-box;
+    height: 55px;
+    display: inline-block;
+    border: 3px solid #b18ef1;
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 16px;
+    margin: 10px auto;
+    transition: .2s;
+}
+
+input[type=text][hidden] {
+    display: none;
+}
+
+input[type=password] {
+    width: 300px;
+    box-sizing: border-box;
+    height: 55px;
+    display: inline-block;
+    border: 3px solid #b18ef1;
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 16px;
+    margin: 10px auto;
+    transition: .2s;
+}
+
+input[type=date] {
+    width: 200px;
+    border: 3px solid #b18ef1;
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 16px;
+}
+
+.select-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+select[name=gender] {
+    width: 200px;
+    border: 3px solid #b18ef1;
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 16px;
+}
+
+.container {
+    height: 70px;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.parent {
+    position: relative;
+}
+
+.select {
+    width: 100px;
+    height: 40px;
+    border-radius: 18px;
+    outline: none;
+    border: 1px solid #ccc;
+    padding-left: 20px;
+    position: absolute;
+}
+
+.search {
+    width: 600px;
+    height: 40px;
+    border-radius: 18px;
+    outline: none;
+    border: 1px solid #ccc;
+    padding-left: 20px;
+    left: 125px;
+    position: absolute;
+}
+
+.btn {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 6px;
+    left: 700px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-size: cover;
+    color: rgb(0, 162, 255)
+}
+
+.linkbutton {
+    background-color: #b18ef1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+
+.welcome_words {
+    color: #6a28d4;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 2px 2px;
+}
+
+.purchase-input {
+    width: 50px;
+    /* Change this to the desired width */
+    border: 1px solid #ccc;
+    /* Change this to the desired border color */
+    padding: 5px;
+    /* Change this to the desired padding */
+    font-size: 16px;
+    /* Change this to the desired font size */
+}
+
+body {
+    /* background-color: black; */
+    /* bg no use.. */
+    color: #6a28d4;
+    /* set the font color to white */
+}
+
+table {
+    width: 1450px;
+    margin: 0 auto;
+    /* center the table horizontally */
+    border-collapse: collapse;
+    /* remove the spacing between cells */
+}
+
+th {
+    /* background-color: gray; */
+    /* set the background color of the table header cells */
+    padding: 10px;
+}
+
+td {
+    border: 1px solid white;
+    /* add a white border around the table cells */
+    padding: 10px;
+}
+
+.action {
+    background-color: white;
+    color: rgb(0, 162, 255);
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.action:hover {
+    background-color: rgb(0, 162, 255);
+    color: rgb(255, 255, 255);
+}
+
+.action_done {
+    background-color: white;
+    color: rgb(0, 162, 255);
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.tspan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

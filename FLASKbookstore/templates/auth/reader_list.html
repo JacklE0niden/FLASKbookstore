@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}读者名单{% endblock %}</h1>
+{% endblock %} {% block content %}
+<table width="900px" height="100px">
+    <tr>
+        <th>读者ID</th>
+        <th>用户名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>&nbsp;</th>
+    </tr>
+    {% for rd in rds %}
+    <article class="rd">
+        <header>
+            <tr>
+                <th>{{ rd['rid'] }}</th>
+                <th>{{ rd['rname'] }}</th>
+                <th>{{ rd['gender'] }}</th>
+                <th>{{ rd['age'] }}</th>
+                <th><a class="action" href="{{ url_for('auth.reader_update', id=rd['rid']) }}">更改</a></th>
+                <th><a class="action" href="{{ url_for('auth.delete_reader', id=rd['rid']) }}">删除</a></th>
+            </tr>
+        </header>
+    </article>
+    {% endfor %}
+</table>
+{% endblock %}

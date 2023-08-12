@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}管理员{% endblock %}</h1>
+  <a class="action" href="{{ url_for('auth.admin_register') }}">新增</a>
+{% endblock %}
+
+
+
+{% block content %}
+  <table width="900px" height="100px">
+    <tr>
+      <th>管理员ID</th>
+      <th>用户名</th>
+      <th>真名</th>
+      <th>工号</th>
+      <th>性别</th>
+      <th>年龄</th>
+      <th>是否为超级管理员</th>
+      <th>&nbsp;</th>
+    </tr>
+  {% for admin in admins %}
+    <article class="admin">
+      <header>
+        <tr>
+          <th>{{ admin['aid'] }}</th>
+          <th>{{ admin['aname'] }}</th>
+          <th>{{ admin['realname'] }}</th>
+          <th>{{ admin['workno'] }}</th>
+          <th>{{ admin['gender'] }}</th>
+          <th>{{ admin['age'] }}</th>
+          <th>{{ admin['issuper'] }}</th>
+          <th><a class="action" href="{{ url_for('auth.admin_update', id=admin['aid']) }}">更改</a></th>
+          <th><a class="action" href="{{ url_for('auth.delete_administrator', id=admin['aid']) }}">删除</a></th>
+        </tr>
+      </header>
+    </article>
+  {% endfor %}
+  </table>
+{% endblock %}

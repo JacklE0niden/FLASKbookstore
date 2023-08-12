@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}借书清单{% endblock %}</h1>{% endblock %} {% block content %}
+<table width="900px" height="100px">
+    <tr>
+        <th>借阅流水号</th>
+        <th>书籍ID</th>
+        <th>时间</th>
+        <th>借阅天数</th>
+        <th>操作</th>
+    </tr>
+    {% for post in posts %}
+    <tr>
+        <th>{{ post['brno'] }}</th>
+        <th>{{ post['bid'] }}</th>
+        <th>{{ post['br_time'] }}</th>
+        {% if post['days'] > 1 %}
+            <th style="color: red">{{ post['days'] }}</th>
+        {% else %}
+            <th>{{ post['days'] }}</th>
+        {% endif %}
+        {% if post['isreturn'] is true %}
+        <th>已归还</th>
+        {% else %}
+        <th><a class="action" href="{{ url_for('book.return_book', brno=post['brno']) }}">归还</a></th>
+        {% endif %}
+    </tr>
+    {% endfor %} {% endblock %}

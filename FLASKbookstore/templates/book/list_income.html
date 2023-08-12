@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}收入账单{% endblock %}</h1>{% if g.is_admin %}
+<a class="action" href="{{ url_for('book.create') }}">点击进货</a> {% if g.is_Super %}
+<a class="action" href="{{ url_for('book.list') }}">进货清单</a>
+<a class="action" href="{{ url_for('book.list_expenses') }}">支出账单</a>
+<a class="action" href="{{ url_for('book.list_income') }}">收入账单</a>
+<a class="action" href="{{ url_for('book.all_borrow_list') }}">全部借书清单</a>{% endif %}{% endif %} {% endblock %} {% block content %}
+<table width="900px" height="100px">
+    <form id="dateRangeForm" action="/list_income" method="post">
+        <label for="startDate">开始日期</label>
+        <input type="date" id="startDate" name="startDate" value="{{ startDate }}">
+        <label for="endDate">结束日期</label>
+        <input type="date" id="endDate" name="endDate" value="{{ endDate }}">
+        <input type="submit" name="submit" value="提交">
+    </form>
+    <tr>
+        <th>账单流水号</th>
+        <th>书籍ID</th>
+        <th>时间</th>
+        <th>数量</th>
+        <th>出售单价</th>
+        <th>收入总额</th>
+        <th>退货</th>
+    </tr>
+    {% for post in posts %}
+    <tr>
+        <th>{{ post['inno'] }}</th>
+        <th>{{ post['bid'] }}</th>
+        <th>{{ post['time'] }}</th>
+        <th>{{ post['amount'] }}</th>
+        <th>{{ post['unit_price'] }}</th>
+        <th>{{ post['total_income'] }}</th>
+        {% if post['isbookrefund'] is true %}
+        <th>已退货</th>
+        {% else %}
+        <th><a class="action" href="{{ url_for('book.bookrefund', inno=post['inno']) }}">退货</a></th>
+        {% endif %}
+    </tr>
+    {% endfor %} {% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %} {% block header %}
+<h1>{% block title %}进货清单{% endblock %}</h1>
+{% if g.is_admin %}
+<a class="action" href="{{ url_for('book.create') }}">点击进货</a> {% if g.is_Super %}
+<a class="action" href="{{ url_for('book.list') }}">进货清单</a>
+<a class="action" href="{{ url_for('book.list_expenses') }}">支出账单</a>
+<a class="action" href="{{ url_for('book.list_income') }}">收入账单</a>
+<a class="action" href="{{ url_for('book.all_borrow_list') }}">全部借书清单</a>{% endif %}{% endif %} {% endblock %} {% block content %}
+<table width="900px" height="100px">
+    <!-- isRefund isPaid is Arrived -->
+    <tr>
+        <th>订单ID</th>
+        <th>书籍ID</th>
+        <th>进货数量</th>
+        <th>进货单价</th>
+        <th>退货状态</th>
+        <th>付款状态</th>
+        <th>到货状态</th>
+    </tr>
+    {% for post in posts %}
+    <article class="post">
+        <header>
+            <tr>
+                <th>{{ post['oid'] }}</th>
+                <th>{{ post['bid'] }}</th>
+                <th>{{ post['amount'] }}</th>
+                <th>{{ post['jinjia'] }}</th>
+                {% if post['ispaid'] is true %}
+                <th>不可退货</th>
+                {% else %} {% if post['isrefund'] is false %}
+                <th><a class="action" href="{{ url_for('book.refund', oid=post['oid']) }}">退货</a></th>
+                {% else %}
+                <th>已退货</th>
+                {% endif %} {% endif %}{% if post['ispaid'] is false and post['isrefund'] is false %}
+                <th><a class="action" href="{{ url_for('book.pay', oid=post['oid']) }}">付款</a></th>
+                {% else %} {% if post['isrefund'] is true %}
+                <th>不可付款</th>
+                {% else %}
+                <th>已付款</th>
+                {% endif %} {% endif %} {% if post['ispaid'] is true and post['isarrived'] is false %}
+                <th><a class="action" href="{{ url_for('book.arrive', oid=post['oid']) }}">到货</a></th>
+                {% else %} {% if post['isarrived'] is true %}
+                <th>已到货</th>
+                {% if post['shoujia'] == 0 %}
+                <form action="/set_unit_price" method="post">
+                    <th><input type="hidden" name="bid" value="{{ post['bid'] }}"> 输入零售价
+                        <input type="number" name="unit_price">
+                        <button type="submit">提交</button><br>
+                    </th>
+                </form>
+                {% endif %} {% endif %} {% endif %}
+            </tr>
+        </header>
+    </article>
+    {% endfor %}
+</table>
+{% endblock %}
